@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Create Product</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/variables.css?v=4">
+  <link rel="stylesheet" href="/css/global.css?v=4">
+  <link rel="stylesheet" href="/css/admin.css?v=4">
+</head>
+
+<body>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        Admin Panel
+      </div>
+      <nav class="sidebar-nav">
+        <a href="/admin/products" class="active">Products</a>
+        <a href="/admin/categories">Categories</a>
+        <a href="/v1/products" target="_blank">View Site &rarr;</a>
+      </nav>
+      <div class="sidebar-footer">
+        <form action="/v1/auth/logout" method="POST">
+          <button type="submit" class="btn btn-secondary"
+            style="width: 100%; border: none; background: rgba(255,255,255,0.1); color: white;">Logout</button>
+        </form>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="page-header">
+        <h1 class="page-title">Create Product</h1>
+        <a href="/admin/products" class="btn btn-secondary">&larr; Back to products</a>
+      </div>
+
+      <div class="card" style="max-width: 800px;">
+        <form action="/admin/products" method="POST" enctype="multipart/form-data">
+
+          <div class="form-group">
+            <label>Product Title</label>
+            <input type="text" name="title" required placeholder="e.g. iPhone 15 Pro" />
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="4" placeholder="Product details..."></textarea>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+              <label>Price</label>
+              <input type="number" name="price" step="0.01" required placeholder="0.00" />
+            </div>
+
+            <div class="form-group">
+              <label>Quantity Available</label>
+              <input type="number" name="qtyAvailable" required placeholder="0" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Category</label>
+            <select name="categoryId" required>
+              <option value="">Select Category</option>
+              <% categories.forEach(cat=> { %>
+                <option value="<%= cat.id %>">
+                  <%= cat.name %>
+                </option>
+                <% }) %>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Product Images (Select multiple)</label>
+            <input type="file" name="images" accept="image/*" multiple required
+              style="padding: 10px; border: 1px dashed var(--border-focus); background: var(--bg-body);" />
+          </div>
+
+          <div style="margin-top: 30px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Create Product</button>
+          </div>
+
+        </form>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

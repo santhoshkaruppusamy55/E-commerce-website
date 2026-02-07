@@ -1,0 +1,50 @@
+/* Cart-specific styles */
+
+/* Cart action buttons */
+.btn-cart-update,
+.btn-cart-remove {
+  border: none;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.btn-cart-update {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.btn-cart-update:hover {
+  background: var(--success);
+  color: white;
+  transform: scale(1.05);
+}
+
+.btn-cart-remove {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.btn-cart-remove:hover {
+  background: var(--danger);
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Cart table improvements */
+.table-container table td {
+  vertical-align: middle;
+}
+
+.table-container table td input[type="number"] {
+  padding: 6px 8px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+}

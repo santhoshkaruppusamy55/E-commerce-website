@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Product Details - Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/variables.css?v=4">
+    <link rel="stylesheet" href="/css/global.css?v=4">
+    <link rel="stylesheet" href="/css/admin.css?v=4">
+    <style>
+        .product-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            padding: 16px;
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-light);
+        }
+
+        .detail-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                Admin Panel
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/admin/products" class="active">Products</a>
+                <a href="/admin/categories">Categories</a>
+                <a href="/v1/products" target="_blank">View Site &rarr;</a>
+            </nav>
+            <div class="sidebar-footer">
+                <form action="/v1/auth/logout" method="POST">
+                    <button type="submit" class="btn btn-secondary"
+                        style="width: 100%; border: none; background: rgba(255,255,255,0.1); color: white;">Logout</button>
+                </form>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <%= product.title %>
+                </h1>
+                <div style="display: flex; gap: 10px;">
+                    <a href="/admin/products/<%= product.id %>/edit" class="btn btn-primary">Edit Product</a>
+                    <form action="/admin/products/<%= product.id %>/delete" method="POST" style="margin: 0;">
+                        <button type="submit" class="btn btn-danger">Delete Product</button>
+                    </form>
+                </div>
+            </div>
+
+            <a href="/admin/products" class="btn btn-secondary" style="margin-bottom: 20px;">&larr; Back to Products</a>
+
+            <div class="card">
+                <h2 style="margin-bottom: 20px;">Product Information</h2>
+
+                <div class="product-detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">Category</div>
+                        <div class="detail-value">
+                            <span
+                                style="background: #e2e8f0; padding: 4px 12px; border-radius: 99px; font-size: 14px; color: #475569;">
+                                <%= product.Category.name %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Price</div>
+                        <div class="detail-value" style="color: var(--accent);">₹<%= product.price %>
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Stock Available</div>
+                        <div class="detail-value"
+                            style="color: <%= product.qtyAvailable < 5 ? 'var(--danger)' : 'var(--success)' %>">
+                            <%= product.qtyAvailable %> units
+                        </div>
+                    </div>
+
+                    <div class="detail-item">
+                        <div class="detail-label">Product ID</div>
+                        <div class="detail-value" style="font-family: monospace; font-size: 14px;">
+                            <%= product.id %>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                    <div class="detail-label">Description</div>
+                    <p style="margin-top: 8px; line-height: 1.6; color: var(--text-main);">
+                        <%= product.description || 'No description provided' %>
+                    </p>
+                </div>
+
+                <div style="margin-top: 32px;">
+                    <h3 style="margin-bottom: 16px;">Product Images</h3>
+                    <% if (product.ProductImages && product.ProductImages.length> 0) { %>
+                        <div class="product-images">
+                            <% product.ProductImages.forEach(image=> { %>
+                                <img src="<%= image.path %>" alt="<%= product.title %>" class="product-image">
+                                <% }) %>
+                        </div>
+                        <% } else { %>
+                            <p style="color: var(--text-muted);">No images uploaded for this product.</p>
+                            <% } %>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

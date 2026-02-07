@@ -1,0 +1,25 @@
+/* Checkout-specific styles */
+
+/* Order summary table */
+#summaryBody tr {
+  border-bottom: 1px solid var(--border-light);
+}
+
+#summaryBody td {
+  padding: 10px 0;
+  vertical-align: middle;
+}
+
+#summaryBody td:first-child {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #summaryBody td:first-child {
+    max-width: 80px;
+  }
+}

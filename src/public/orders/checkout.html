@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/variables.css?v=7">
+  <link rel="stylesheet" href="/css/global.css?v=7">
+  <link rel="stylesheet" href="/css/user.css?v=7">
+  <link rel="stylesheet" href="/css/checkout.css">
+  <link rel="stylesheet" href="/css/notification.css">
+</head>
+
+<body>
+
+  <header class="top-bar">
+    <a href="/v1/products" class="brand">Store</a>
+    <nav class="nav-links">
+      <a href="/v1/cart">Cart</a>
+      <a href="/v1/orders">My Orders</a>
+    </nav>
+  </header>
+
+  <div class="page-container">
+    <a href="/v1/cart" class="btn btn-secondary"
+      style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      Back to Cart
+    </a>
+
+    <div class="products-layout">
+      <!-- Checkout Form -->
+      <div style="flex: 1;">
+        <div class="card">
+          <h2 style="margin-bottom: 20px; font-size: 1.25rem;">Shipping Details</h2>
+          <form id="orderForm">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" name="shippingName" placeholder="Your Name" required>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="shippingEmail" placeholder="you@example.com" required>
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="text" name="shippingPhone" placeholder="Mobile Number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Shipping Address</label>
+              <textarea name="shippingAddress" rows="4" placeholder="Full Address..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 10px;">Place
+              Order</button>
+          </form>
+        </div>
+      </div>
+
+      <aside style="width: 320px; flex-shrink: 0;">
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div style="margin-top: 20px; border-top: 1px solid var(--border-light); padding-top: 15px;">
+            <table style="width: 100%; font-size: 0.875rem;">
+              <thead>
+                <tr style="border-bottom: 1px solid var(--border-light);">
+                  <th style="text-align: left; padding: 8px 0; font-weight: 600;">Product</th>
+                  <th style="text-align: center; padding: 8px 0; font-weight: 600;">Qty</th>
+                  <th style="text-align: right; padding: 8px 0; font-weight: 600;">Price</th>
+                  <th style="text-align: right; padding: 8px 0; font-weight: 600;">Total</th>
+                </tr>
+              </thead>
+              <tbody id="summaryBody"></tbody>
+            </table>
+          </div>
+          <div
+            style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.125rem; border-top: 2px solid var(--border-medium); padding-top: 15px; margin-top: 15px;">
+            <span>Total</span>
+            <span id="total">₹ 0.00</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script type="module" src="/js/user-status.js"></script>
+  <script type="module" src="/js/checkout.js"></script>
+</body>
+
+</html>
