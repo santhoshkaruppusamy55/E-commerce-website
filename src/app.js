@@ -20,7 +20,6 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.set('trust proxy', 1); // Trust the load balancer (required for secure cookies in EB)
 
 
 app.set('view engine', 'ejs');

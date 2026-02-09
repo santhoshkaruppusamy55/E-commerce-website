@@ -25,7 +25,7 @@ async function loadProducts(query = "") {
       `;
     });
 
-   
+
     grid.innerHTML = "";
 
     if (!data.products || data.products.length === 0) {
@@ -35,8 +35,8 @@ async function loadProducts(query = "") {
     }
 
     data.products.forEach(p => {
-      const productImage = p.ProductImages.length 
-        ? `<img src="${p.ProductImages[0].path}" class="product-image" alt="${p.title}" />` 
+      const productImage = p.ProductImages.length
+        ? `<img src="${p.ProductImages[0].path}" class="product-image" alt="${p.title}" />`
         : `<div class="product-image" style="display: flex; align-items: center; justify-content: center; color: var(--text-muted);">No Image</div>`;
 
       grid.innerHTML += `
@@ -52,26 +52,27 @@ async function loadProducts(query = "") {
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto;">
               <span class="product-price">₹ ${p.price}</span>
-              ${
-                p.qtyAvailable > 0
-                  ? `<span style="font-size: 0.75rem; color: var(--success); background: #ecfdf5; padding: 2px 6px; border-radius: 4px;">In Stock</span>`
-                  : `<span style="font-size: 0.75rem; color: var(--danger); background: #fef2f2; padding: 2px 6px; border-radius: 4px;">Out of Stock</span>`
-              }
+              ${p.qtyAvailable > 0
+          ? `<span style="font-size: 0.75rem; color: var(--success); background: #ecfdf5; padding: 2px 6px; border-radius: 4px;">In Stock</span>`
+          : `<span style="font-size: 0.75rem; color: var(--danger); background: #fef2f2; padding: 2px 6px; border-radius: 4px;">Out of Stock</span>`
+        }
             </div>
           </div>
         </div>
       `;
     });
 
-    
+
     pagination.innerHTML = "";
 
     // render pagination while preserving current filters
+    const currentPage = parseInt(params.get("page")) || 1;
     for (let i = 1; i <= data.totalPages; i++) {
       const pageParams = new URLSearchParams(params.toString());
       pageParams.set("page", i);
+      const activeClass = i === currentPage ? ' class="active"' : '';
       pagination.innerHTML += `
-        <a onclick="loadProducts('?${pageParams.toString()}')">
+        <a href="#" data-query="?${pageParams.toString()}"${activeClass}>
           ${i}
         </a>
       `;
@@ -115,5 +116,12 @@ async function cartCount() {
 }
 cartCount();
 
+// Handle pagination clicks using event delegation
+pagination.addEventListener("click", (e) => {
+  if (e.target.tagName === "A" && e.target.dataset.query) {
+    e.preventDefault();
+    loadProducts(e.target.dataset.query);
+  }
+});
 
 loadProducts();
